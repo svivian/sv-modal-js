@@ -3,10 +3,8 @@
 	$.extend({
 
 		svModal: function (id) {
-
 			var $modal = null;
 			createModal(id);
-
 
 			function createModal(id) {
 				var html =
