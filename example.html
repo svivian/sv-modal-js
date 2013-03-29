@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>jQuery svModal</title>
+<link rel="stylesheet" href="modal.min.css">
+<style>
+body {
+	background-color: #4691a0;
+	margin: 0;
+	padding: 50px;
+	font: 14px/1.5 "Open Sans", "Ubuntu", "Trebuchet MS", sans-serif;
+}
+.main {
+	width: 600px;
+	min-height: 400px;
+	margin: 0 auto;
+	padding: 20px;
+	background-color: #fff;
+	border: 2px solid #333;
+}
+h1 {
+	margin: 0 0 1em;
+	font-family: "Open Sans Condensed", "Ubuntu", "Trebuchet MS", sans-serif;
+}
+</style>
+</head>
+
+<body>
+
+<div class="main">
+	<h1>jQuery svModal demo</h1>
+
+	<p><a id="modalLink" href="#">Show a modal window</a></p>
+</div>
+
+
+
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+<script src="svmodal.js?dev"></script>
+<script>
+$(function () {
+	var $modal = $.svModal('mymodal');
+	$('#modalLink').click(function () {
+		var html = '<p>Here are some random numbers.</p>';
+		for ( var i = 0; i < 10; i++ )
+			html += Math.random() + '<br>';
+		$modal.inject(html, 'Hello, world!');
+		$modal.show();
+	});
+});
+</script>
+
+</body>
+</html>
