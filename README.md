@@ -6,7 +6,7 @@ Yawn, yet another modal window plugin...
 
 Usage:
 
-	var $modal = $.svModal('dualtype-popup');
+	var $modal = $.svModal('modal-id');
 
 	$('#element').click(function () {
 		$modal.inject('The content', 'The title');

@@ -1,4 +1,6 @@
-
+/*
+	svModal v1.0 - jQuery modal window plugin
+*/
 (function ($) {
 	$.extend({
 
