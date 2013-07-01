@@ -12,7 +12,7 @@
 				var html =
 					'<div id="' + id + '" class="whiteout">' +
 						'<div class="modal">' +
-							'<span class="modal-close" title="Close">&#x274c;</span>' +
+							'<span class="modal-close" title="Close">&times;</span>' +
 							'<h3 class="modal-title"></h3>' +
 							'<div class="modal-content"></div>' +
 						'</div>' +
