@@ -1,5 +1,5 @@
 /*
-	svModal v1.0 - jQuery modal window plugin
+	svModal v1.1 - jQuery modal window plugin
 */
 (function ($) {
 	$.extend({
