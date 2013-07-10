@@ -20,30 +20,34 @@
 				$modal = $(html).appendTo('body');
 
 				$('.whiteout, .modal-close').click(function (ev) {
-					if ( ev.target == this )
+					if ( ev.target === this ) {
 						closeModal();
+					}
 				});
 			}
 
 			function closeModal() {
-				if ( !$modal )
+				if ( !$modal ) {
 					return;
+				}
 				$modal.fadeOut();
 			}
 
 			return {
 
 				inject: function (content, title) {
-					if ( !$modal )
+					if ( !$modal ) {
 						return;
+					}
 
 					$('.modal-title', $modal).html(title);
 					$('.modal-content', $modal).html(content);
 				},
 
 				show: function () {
-					if ( !$modal )
+					if ( !$modal ) {
 						return;
+					}
 
 					$modal.fadeIn();
 				},
