@@ -1,5 +1,5 @@
 /*
-	svModal v1.1 - jQuery modal window plugin
+	svModal v1.2 - jQuery modal window plugin
 */
 (function ($) {
 	$.extend({
@@ -30,6 +30,10 @@
 				if ( !$modal ) {
 					return;
 				}
+				// remove content before fading out
+				$('.modal-title', $modal).html('');
+				$('.modal-content', $modal).html('');
+
 				$modal.fadeOut();
 			}
 
