@@ -10,6 +10,8 @@ $modal-bwidth:   12px;
 $modal-title-height:   25px;
 $modal-content-height: $modal-height - $modal-title-height - $modal-padding;
 
+$whiteout-color: rgba(255, 255, 255, 0.8);
+
 
 .modal {
 	/* layout */
@@ -72,6 +74,6 @@ $modal-close-size: 15px;
 	top: 0;
 	right: 0;
 	bottom: 0;
-	background-color: #fff;
-	background-color: rgba(255, 255, 255, 0.8);
+	background-color: #fff; // backup
+	background-color: $whiteout-color;
 }

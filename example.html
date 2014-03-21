@@ -2,7 +2,7 @@
 <html>
 <head>
 <title>jQuery svModal</title>
-<link rel="stylesheet" href="modal.min.css">
+<link rel="stylesheet" href="svmodal.min.css">
 <style>
 body {
 	background-color: #4691a0;
@@ -40,12 +40,14 @@ h1 {
 <script>
 $(function () {
 	var $modal = $.svModal('mymodal');
-	$('#modalLink').click(function () {
+	$('#modalLink').click(function (ev) {
 		var html = '<p>Here are some random numbers.</p>';
 		for ( var i = 0; i < 10; i++ )
 			html += Math.random() + '<br>';
 		$modal.inject(html, 'Hello, world!');
 		$modal.show();
+
+		ev.preventDefault();
 	});
 });
 </script>
