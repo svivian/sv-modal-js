@@ -1,26 +1,48 @@
 <!DOCTYPE html>
 <html>
 <head>
+<meta charset="utf-8">
+<link rel="stylesheet" href="sv-modal.css?dev">
 <title>jQuery svModal</title>
-<link rel="stylesheet" href="svmodal.min.css">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
 <style>
 body {
 	background-color: #4691a0;
 	margin: 0;
-	padding: 50px;
-	font: 14px/1.5 "Open Sans", "Ubuntu", "Trebuchet MS", sans-serif;
+	padding: 30px;
+	font: 16px/1.5 "Open Sans", "Ubuntu", "Helvetica", "Trebuchet MS", sans-serif;
 }
 .main {
-	width: 600px;
-	min-height: 400px;
+	box-sizing: border-box;
+	width: 720px;
+	max-width: 100%;
+	min-height: 480px;
 	margin: 0 auto;
-	padding: 20px;
+	padding: 1rem;
 	background-color: #fff;
 	border: 2px solid #333;
 }
 h1 {
 	margin: 0 0 1em;
-	font-family: "Open Sans Condensed", "Ubuntu", "Trebuchet MS", sans-serif;
+	font-family: "Open Sans Condensed", "Ubuntu", "Helvetica", "Trebuchet MS", sans-serif;
+}
+h3 {
+	margin: 0 0 1em;
+}
+pre {
+	overflow: auto;
+	background-color: #eee;
+	padding: 0.5rem 0.8rem;
+	font-size: 13px;
+}
+
+.btn {
+	display: inline-block;
+	padding: 0.5rem 0.8rem;
+	background-color: #209cee;
+	color: #fff;
+	text-decoration: none;
 }
 </style>
 </head>
@@ -30,25 +52,46 @@ h1 {
 <div class="main">
 	<h1>jQuery svModal demo</h1>
 
-	<p><a id="modalLink" href="#">Show a modal window</a></p>
+	<p><a id="modalLink" class="btn" href="#">Show a modal window</a></p>
+
+	<p>&nbsp;</p>
+	<p>The code in this example:</p>
+
+	<pre><code>&lt;script src="sv-modal.js"&gt;&lt;/script&gt;
+&lt;script&gt;
+// set up the modal
+var modal = new SV.Modal('my-modal');
+// trigger the modal
+document.getElementById('modalLink').addEventListener('click', function(ev) {
+	ev.preventDefault();
+
+	// inject some content
+	var html = '&lt;p&gt;Here are some random numbers.&lt;/p&gt;';
+	for ( var i = 0; i &lt; 10; i++ )
+		html += Math.random() + '&lt;br&gt;';
+	modal.inject(html, 'Hello, world!');
+
+	modal.show();
+});
+&lt;/script&gt;</code></pre>
 </div>
 
 
-
-<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
-<script src="svmodal.js?dev"></script>
+<script src="sv-modal.js?dev"></script>
 <script>
-$(function () {
-	var $modal = $.svModal('mymodal');
-	$('#modalLink').click(function (ev) {
-		var html = '<p>Here are some random numbers.</p>';
-		for ( var i = 0; i < 10; i++ )
-			html += Math.random() + '<br>';
-		$modal.inject(html, 'Hello, world!');
-		$modal.show();
+// set up the modal
+var modal = new SV.Modal('my-modal');
+// trigger the modal
+document.getElementById('modalLink').addEventListener('click', function(ev) {
+	ev.preventDefault();
 
-		ev.preventDefault();
-	});
+	// inject some content
+	var html = '<p>Here are some random numbers.</p>';
+	for ( var i = 0; i < 10; i++ )
+		html += Math.random() + '<br>';
+	modal.inject(html, 'Hello, world!');
+
+	modal.show();
 });
 </script>
 
