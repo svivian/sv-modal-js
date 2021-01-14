@@ -1,7 +1,7 @@
 // load namespace
 SV = window.SV || {};
 
-SV.Modal = function(modalId, params) {
+SV.Modal = (function() {
 
 	// private members
 
@@ -40,6 +40,7 @@ SV.Modal = function(modalId, params) {
 				contentElem.innerHTML = '';
 		});
 
+		// handle clicks on close button and background
 		document.addEventListener('click', function(ev) {
 			var classes = ev.target.classList;
 			if (classes.contains('modal-wrapper') || classes.contains('modal-close'))
@@ -54,34 +55,39 @@ SV.Modal = function(modalId, params) {
 		modal.classList.remove('visible');
 	};
 
-	// constructor
+	var Constructor = function(modalId, params) {
 
-	createModal(modalId);
+		createModal(modalId);
+
+	};
 
 	// public api
 
-	return {
-
-		inject: function (content, title) {
-			if (!modal)
-				return;
-
-			if (titleElem)
-				titleElem.innerHTML = title;
-			if (contentElem)
-				contentElem.innerHTML = content;
-		},
-
-		show: function () {
-			if (!modal)
-				return;
-
-			modal.classList.add('visible');
-		},
-
-		close: function () {
-			closeModal();
-		}
+	Constructor.prototype.getElement = function() {
+		return modal;
 	};
 
-};
+	Constructor.prototype.inject = function (content, title) {
+		if (!modal)
+			return;
+
+		if (titleElem)
+			titleElem.innerHTML = title;
+		if (contentElem)
+			contentElem.innerHTML = content;
+	};
+
+	Constructor.prototype.show = function () {
+		if (!modal)
+			return;
+
+		modal.classList.add('visible');
+	};
+
+	Constructor.prototype.close = function () {
+		closeModal();
+	};
+
+	return Constructor;
+
+})();
