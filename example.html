@@ -35,6 +35,7 @@ pre {
 	background-color: #eee;
 	padding: 0.5rem 0.8rem;
 	font-size: 13px;
+	tab-size: 4;
 }
 
 .btn {
@@ -61,13 +62,19 @@ pre {
 &lt;script&gt;
 // set up the modal
 var modal = new SV.Modal('my-modal');
+
+// handle events
+modal.getElement().addEventListener('sv.modal.close', function (ev) {
+	console.log('Closed the modal');
+});
+
 // trigger the modal
 document.getElementById('modalLink').addEventListener('click', function(ev) {
 	ev.preventDefault();
 
 	// inject some content
 	var html = '&lt;p&gt;Here are some random numbers.&lt;/p&gt;';
-	for ( var i = 0; i &lt; 10; i++ )
+	for (var i = 0; i &lt; 10; i++)
 		html += Math.random() + '&lt;br&gt;';
 	modal.inject(html, 'Hello, world!');
 
@@ -81,13 +88,19 @@ document.getElementById('modalLink').addEventListener('click', function(ev) {
 <script>
 // set up the modal
 var modal = new SV.Modal('my-modal');
+
+// events
+modal.getElement().addEventListener('sv.modal.close', function (ev) {
+	console.log('Closed the modal');
+});
+
 // trigger the modal
 document.getElementById('modalLink').addEventListener('click', function(ev) {
 	ev.preventDefault();
 
 	// inject some content
 	var html = '<p>Here are some random numbers.</p>';
-	for ( var i = 0; i < 10; i++ )
+	for (var i = 0; i < 10; i++)
 		html += Math.random() + '<br>';
 	modal.inject(html, 'Hello, world!');
 

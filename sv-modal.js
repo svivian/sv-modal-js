@@ -53,6 +53,9 @@ SV.Modal = (function() {
 			return;
 
 		modal.classList.remove('visible');
+
+		var closeEvent = new CustomEvent('sv.modal.close');
+		modal.dispatchEvent(closeEvent);
 	};
 
 	var Constructor = function(modalId, params) {

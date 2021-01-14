@@ -27,4 +27,18 @@ Pass in an ID to use for the modal, then in your click handler add your desired 
 	});
 	</script>
 
-See `example.html` for a demo.
+### Methods
+
+- `getElement()` - get the DOM element containing the modal.
+- `inject(content, title)` - add content to the modal and set the title.
+- `resizeContent(width, height, callback)` - manually resize the modal.
+- `show()` - show the modal.
+- `close()` - hide the modal.
+
+There is also an event you can hook into: `sv.modal.close`. As the plugin creates the modal element itself you'll need to get it first with `getElement()` then attach the listener. Example:
+
+	modal.getElement().addEventListener('sv.modal.close', function (ev) {
+		console.log('Closed the modal');
+	});
+
+Also see `example.html` for a demo.
