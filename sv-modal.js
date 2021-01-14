@@ -11,7 +11,7 @@ SV.Modal = (function() {
 
 	// private methods
 
-	var createModal = function(id) {
+	var Constructor = function(modalId, params) {
 		// modal inner HTML
 		var modalHtml =
 			'<div class="modal">' +
@@ -21,7 +21,7 @@ SV.Modal = (function() {
 			'</div>';
 
 		modal = document.createElement('div');
-		modal.id = id;
+		modal.id = modalId;
 		modal.classList.add('modal-wrapper');
 		modal.innerHTML = modalHtml;
 		document.querySelector('body').appendChild(modal);
@@ -41,27 +41,12 @@ SV.Modal = (function() {
 		});
 
 		// handle clicks on close button and background
+		var ctor = this;
 		document.addEventListener('click', function(ev) {
 			var classes = ev.target.classList;
 			if (classes.contains('modal-wrapper') || classes.contains('modal-close'))
-				closeModal();
+				ctor.close();
 		});
-	};
-
-	var closeModal = function() {
-		if (!modal)
-			return;
-
-		modal.classList.remove('visible');
-
-		var closeEvent = new CustomEvent('sv.modal.close');
-		modal.dispatchEvent(closeEvent);
-	};
-
-	var Constructor = function(modalId, params) {
-
-		createModal(modalId);
-
 	};
 
 	// public api
@@ -88,7 +73,13 @@ SV.Modal = (function() {
 	};
 
 	Constructor.prototype.close = function () {
-		closeModal();
+		if (!modal)
+			return;
+
+		modal.classList.remove('visible');
+
+		var closeEvent = new CustomEvent('sv.modal.close');
+		modal.dispatchEvent(closeEvent);
 	};
 
 	return Constructor;
