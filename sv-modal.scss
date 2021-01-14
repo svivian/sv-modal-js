@@ -1,8 +1,12 @@
 // Modal dialog styles
 
+// Compile with `sass sv-modal.scss:sv-modal.css --no-source-map`
+
 $blackout: rgba(0, 0, 0, 0.6) !default;
 $modal-width: 480px !default;
 $modal-close-size: 21px !default;
+$fade-time: 0.4s;
+$resize-time: 0.4s;
 
 .modal-wrapper {
 	position: fixed;
@@ -17,12 +21,16 @@ $modal-close-size: 21px !default;
 	// fade in/out
 	opacity: 0;
 	visibility: hidden;
-	transition: visibility 0s 0.4s, opacity 0.4s 0s ease;
+	transition: visibility 0s $fade-time, opacity $fade-time 0s ease;
 
 	&.visible {
 		opacity: 1;
 		visibility: visible;
-		transition: visibility 0s 0s, opacity 0.4s 0s ease;
+		transition: visibility 0s 0s, opacity $fade-time 0s ease;
+	}
+
+	* {
+		box-sizing: border-box;
 	}
 }
 
@@ -33,14 +41,14 @@ $modal-close-size: 21px !default;
 	top: 50%;
 	-webkit-transform: translate(-50%, -50%);
 	transform: translate(-50%, -50%);
-	width: $modal-width;
+	min-width: $modal-width;
 	max-width: calc(100% - 2rem);
 	max-height: calc(100% - 2rem);
 	overflow: auto;
 	padding: 1.25rem;
 	border-radius: 4px;
 	background-color: #fff;
-	box-shadow: 1px 1px 2px rgba(0, 0, 0, .7);
+	box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.7);
 }
 
 .modal-close {
@@ -50,10 +58,10 @@ $modal-close-size: 21px !default;
 	right: 1.25rem;
 	width: $modal-close-size;
 	height: $modal-close-size;
-	line-height: $modal-close-size;
+	line-height: $modal-close-size - 2px;
 	border-radius: 100%;
 
-	font-size: 1.5rem;
+	font-size: 1.3rem;
 	font-weight: bold;
 	text-align: center;
 
@@ -69,4 +77,6 @@ $modal-close-size: 21px !default;
 
 .modal-content {
 	max-width: 100%;
+	transition-property: width, height;
+	transition-duration: $resize-time;
 }
