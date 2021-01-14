@@ -39,6 +39,8 @@ document.getElementById('modalLink').addEventListener('click', function(ev) {
 - `close()` - manually hide the modal. Triggers `sv.modal.close` (see below).
 - `resizeContent(width, height)` - manually resize the modal to a specific (pixel) size. Triggers `sv.modal.resize` (see below).
 
+### Events
+
 There are also two events you can hook into. Note that both these events require the CSS transitions in place.
 
 The first event is `sv.modal.close` which is fired after the modal has fully closed (faded out). As the plugin creates the modal element itself you'll need to get it first with `getModalElement()` then attach the listener. Example:
@@ -49,7 +51,7 @@ modal.getModalElement().addEventListener('sv.modal.close', function (ev) {
 });
 ```
 
-The second event is `sv.modal.resize` which is fired after a call to `resizeContent`, when the animation has finished. An exampke use case would be for an image lightbox:
+The second event is `sv.modal.resize` which is fired after a call to `resizeContent`, when the animation has finished. An example use case would be for an image lightbox:
 
 ```js
 var img = new Image();
