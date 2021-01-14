@@ -40,6 +40,23 @@ SV.Modal = (function() {
 				contentElem.innerHTML = '';
 		});
 
+		// trigger event on resize
+		var eventThrottle = false;
+		contentElem.addEventListener('transitionend', function(ev) {
+			var validProps = ['width', 'height'];
+			if (eventThrottle || !validProps.includes(ev.propertyName))
+				return;
+
+			// prevent both width and height triggering event
+			eventThrottle = true;
+			modal.dispatchEvent(new CustomEvent('sv.modal.resize'));
+
+			// set a timeout to throttle
+			setTimeout(function() {
+				eventThrottle = false;
+			}, 500);
+		});
+
 		// handle clicks on close button and background
 		var ctor = this;
 		document.addEventListener('click', function(ev) {
@@ -51,8 +68,16 @@ SV.Modal = (function() {
 
 	// public api
 
-	Constructor.prototype.getElement = function() {
+	Constructor.prototype.getModalElement = function() {
 		return modal;
+	};
+
+	Constructor.prototype.getContentElement = function() {
+		return contentElem;
+	};
+
+	Constructor.prototype.getTitleElement = function() {
+		return titleElem;
 	};
 
 	Constructor.prototype.inject = function (content, title) {
@@ -80,6 +105,20 @@ SV.Modal = (function() {
 
 		var closeEvent = new CustomEvent('sv.modal.close');
 		modal.dispatchEvent(closeEvent);
+	};
+
+	Constructor.prototype.resizeContent = function (width, height) {
+		if (!modal)
+			return;
+
+		// explicitly set current size of modal, so that CSS transitions work
+		contentElem.style.width = contentElem.offsetWidth + 'px';
+		contentElem.style.height = contentElem.offsetHeight + 'px';
+
+		if (width && height) {
+			contentElem.style.width = width + 'px';
+			contentElem.style.height = height + 'px';
+		}
 	};
 
 	return Constructor;

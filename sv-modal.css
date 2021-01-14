@@ -16,6 +16,9 @@
 	visibility: visible;
 	transition: visibility 0s 0s, opacity 0.4s 0s ease;
 }
+.modal-wrapper * {
+	box-sizing: border-box;
+}
 
 .modal {
 	position: fixed;
@@ -24,7 +27,7 @@
 	top: 50%;
 	-webkit-transform: translate(-50%, -50%);
 	transform: translate(-50%, -50%);
-	width: 480px;
+	min-width: 480px;
 	max-width: calc(100% - 2rem);
 	max-height: calc(100% - 2rem);
 	overflow: auto;
@@ -41,9 +44,9 @@
 	right: 1.25rem;
 	width: 21px;
 	height: 21px;
-	line-height: 21px;
+	line-height: 19px;
 	border-radius: 100%;
-	font-size: 1.5rem;
+	font-size: 1.3rem;
 	font-weight: bold;
 	text-align: center;
 }
@@ -58,4 +61,6 @@
 
 .modal-content {
 	max-width: 100%;
+	transition-property: width, height;
+	transition-duration: 0.4s;
 }

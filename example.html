@@ -90,8 +90,11 @@ document.getElementById('modalLink').addEventListener('click', function(ev) {
 var modal = new SV.Modal('my-modal');
 
 // events
-modal.getElement().addEventListener('sv.modal.close', function (ev) {
+modal.getModalElement().addEventListener('sv.modal.close', function (ev) {
 	console.log('Closed the modal');
+});
+modal.getModalElement().addEventListener('sv.modal.resize', function (ev) {
+	console.log('Resized the modal');
 });
 
 // trigger the modal
