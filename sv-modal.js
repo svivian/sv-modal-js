@@ -8,10 +8,11 @@ SV.Modal = (function() {
 	var modal = null;
 	var titleElem = null;
 	var contentElem = null;
+	var eventThrottle = false;
 
 	// private methods
 
-	var Constructor = function(modalId, params) {
+	var Constructor = function(modalId) {
 		// modal inner HTML
 		var modalHtml =
 			'<div class="modal">' +
@@ -29,7 +30,7 @@ SV.Modal = (function() {
 		titleElem = modal.querySelector('.modal-title');
 		contentElem = modal.querySelector('.modal-content');
 
-		// remove content on fade out
+		// remove content and trigger event after fade out
 		modal.addEventListener('transitionend', function(ev) {
 			if (modal.classList.contains('visible'))
 				return;
@@ -38,10 +39,12 @@ SV.Modal = (function() {
 				titleElem.innerHTML = '';
 			if (contentElem)
 				contentElem.innerHTML = '';
+
+			var closeEvent = new CustomEvent('sv.modal.close');
+			modal.dispatchEvent(closeEvent);
 		});
 
 		// trigger event on resize
-		var eventThrottle = false;
 		contentElem.addEventListener('transitionend', function(ev) {
 			var validProps = ['width', 'height'];
 			if (eventThrottle || !validProps.includes(ev.propertyName))
@@ -54,7 +57,7 @@ SV.Modal = (function() {
 			// set a timeout to throttle
 			setTimeout(function() {
 				eventThrottle = false;
-			}, 500);
+			}, 200);
 		});
 
 		// handle clicks on close button and background
@@ -102,9 +105,8 @@ SV.Modal = (function() {
 			return;
 
 		modal.classList.remove('visible');
-
-		var closeEvent = new CustomEvent('sv.modal.close');
-		modal.dispatchEvent(closeEvent);
+		// fix loading if modal is closed then reopened quickly
+		eventThrottle = false;
 	};
 
 	Constructor.prototype.resizeContent = function (width, height) {

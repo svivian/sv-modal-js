@@ -9,6 +9,9 @@ $fade-time: 0.4s;
 $resize-time: 0.4s;
 
 .modal-wrapper {
+	display: flex;
+	justify-content: center;
+	align-items: center;
 	position: fixed;
 	z-index: 200;
 	left: 0;
@@ -37,11 +40,7 @@ $resize-time: 0.4s;
 .modal {
 	position: fixed;
 	z-index: 210;
-	left: 50%;
-	top: 50%;
-	-webkit-transform: translate(-50%, -50%);
-	transform: translate(-50%, -50%);
-	min-width: $modal-width;
+	min-width: calc(#{$modal-width} - 2rem);
 	max-width: calc(100% - 2rem);
 	max-height: calc(100% - 2rem);
 	overflow: auto;
@@ -49,6 +48,10 @@ $resize-time: 0.4s;
 	border-radius: 4px;
 	background-color: #fff;
 	box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.7);
+
+	@media (max-width: $modal-width) {
+		min-width: auto;
+	}
 }
 
 .modal-close {
@@ -58,10 +61,10 @@ $resize-time: 0.4s;
 	right: 1.25rem;
 	width: $modal-close-size;
 	height: $modal-close-size;
-	line-height: $modal-close-size - 2px;
+	line-height: $modal-close-size;
 	border-radius: 100%;
 
-	font-size: 1.3rem;
+	font-size: 1.5rem;
 	font-weight: bold;
 	text-align: center;
 
@@ -77,6 +80,7 @@ $resize-time: 0.4s;
 
 .modal-content {
 	max-width: 100%;
+	margin: 0 auto;
 	transition-property: width, height;
 	transition-duration: $resize-time;
 }
