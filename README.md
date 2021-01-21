@@ -41,7 +41,7 @@ document.getElementById('modalLink').addEventListener('click', function(ev) {
 
 ### Events
 
-There are also two events you can hook into. Note that both these events require the CSS transitions in place.
+There are also two events you can hook into. To avoid relying on transition events (which turned out to be unreliable), they are fired after a short (400ms) delay, which is after the CSS transition should have ended.
 
 The first event is `sv.modal.close` which is fired after the modal has fully closed (faded out). As the plugin creates the modal element itself you'll need to get it first with `getModalElement()` then attach the listener. Example:
 

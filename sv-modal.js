@@ -11,7 +11,7 @@ SV.Modal = (function() {
 		var modal;
 		var titleElem;
 		var contentElem;
-		var eventThrottle = false;
+		var animTime = 400;
 
 		// private methods
 
@@ -33,38 +33,8 @@ SV.Modal = (function() {
 			titleElem = modal.querySelector('.modal-title');
 			contentElem = modal.querySelector('.modal-content');
 
-			// remove content and trigger event after fade out
-			modal.addEventListener('transitionend', function(ev) {
-				if (modal.classList.contains('visible'))
-					return;
-
-				if (titleElem)
-					titleElem.innerHTML = '';
-				if (contentElem)
-					contentElem.innerHTML = '';
-
-				var closeEvent = new CustomEvent('sv.modal.close');
-				modal.dispatchEvent(closeEvent);
-			});
-
-			// trigger event on resize
-			contentElem.addEventListener('transitionend', function(ev) {
-				var validProps = ['width', 'height'];
-				if (eventThrottle || !validProps.includes(ev.propertyName))
-					return;
-
-				// prevent both width and height triggering event
-				eventThrottle = true;
-				modal.dispatchEvent(new CustomEvent('sv.modal.resize'));
-
-				// set a timeout to throttle
-				setTimeout(function() {
-					eventThrottle = false;
-				}, 200);
-			});
-
 			// handle clicks on close button and background
-			document.addEventListener('click', function(ev) {
+			modal.addEventListener('click', function(ev) {
 				var classes = ev.target.classList;
 				if (classes.contains('modal-wrapper') || classes.contains('modal-close'))
 					methods.close();
@@ -110,8 +80,17 @@ SV.Modal = (function() {
 				return;
 
 			modal.classList.remove('visible');
-			// fix loading if modal is closed then reopened quickly
-			eventThrottle = false;
+
+			// delay event to allow transitions to complete (hooking into transitionend is unreliable)
+			setTimeout(function(ev) {
+				// remove content
+				if (titleElem)
+					titleElem.innerHTML = '';
+				if (contentElem)
+					contentElem.innerHTML = '';
+
+				modal.dispatchEvent(new CustomEvent('sv.modal.close'));
+			}, animTime);
 		};
 
 		methods.resizeContent = function (width, height) {
@@ -126,6 +105,11 @@ SV.Modal = (function() {
 				contentElem.style.width = width + 'px';
 				contentElem.style.height = height + 'px';
 			}
+
+			// delay event to allow transitions to complete (hooking into transitionend is unreliable)
+			setTimeout(function(ev) {
+				modal.dispatchEvent(new CustomEvent('sv.modal.resize'));
+			}, animTime);
 		};
 
 
