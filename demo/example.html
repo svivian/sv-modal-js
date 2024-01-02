@@ -1,51 +1,52 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="utf-8">
-<link rel="stylesheet" href="../sv-modal.css?dev">
-<title>JavaScript sv-modal demo</title>
-<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta charset="utf-8">
+	<link rel="stylesheet" href="../sv-modal.css?dev">
+	<title>JavaScript sv-modal demo</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
 
-<style>
-body {
-	background-color: #4691a0;
-	margin: 0;
-	padding: 30px;
-	font: 16px/1.5 "Open Sans", "Ubuntu", "Helvetica", "Trebuchet MS", sans-serif;
-}
-.main {
-	box-sizing: border-box;
-	width: 720px;
-	max-width: 100%;
-	min-height: 480px;
-	margin: 0 auto;
-	padding: 1rem;
-	background-color: #fff;
-	border: 2px solid #333;
-}
-h1 {
-	margin: 0 0 1em;
-	font-family: "Open Sans Condensed", "Ubuntu", "Helvetica", "Trebuchet MS", sans-serif;
-}
-h3 {
-	margin: 0 0 1em;
-}
-pre {
-	overflow: auto;
-	background-color: #eee;
-	padding: 0.5rem 0.8rem;
-	font-size: 13px;
-	tab-size: 4;
-}
+	<style>
+	body {
+		background-color: #4691a0;
+		margin: 0;
+		padding: 30px;
+		font: 16px/1.5 system-ui, Ubuntu, Helvetica, Arial, sans-serif;
+	}
+	.main {
+		box-sizing: border-box;
+		width: 780px;
+		max-width: 100%;
+		min-height: 480px;
+		margin: 0 auto;
+		padding: 1.5rem;
+		background-color: #fff;
+		border: 2px solid #333;
+	}
+	h1, p {
+		margin: 0 0 1em;
+	}
+	pre {
+		overflow: auto;
+		background-color: #eee;
+		margin: 0;
+		padding: 0.5rem 0.8rem;
+		font-size: 12px;
+		tab-size: 4;
+	}
 
-.btn {
-	display: inline-block;
-	padding: 0.5rem 0.8rem;
-	background-color: #209cee;
-	color: #fff;
-	text-decoration: none;
-}
-</style>
+	.btn {
+		appearance: none;
+		cursor: pointer;
+		display: inline-block;
+		padding: 0.6rem 0.8rem;
+		border: 0;
+		background-color: #209cee;
+		color: #fff;
+		font-size: 1rem;
+		text-decoration: none;
+	}
+	</style>
 </head>
 
 <body>
@@ -53,39 +54,17 @@ pre {
 <div class="main">
 	<h1>JavaScript sv-modal demo</h1>
 
-	<p><a id="modalLink" class="btn" href="#">Show a modal window</a></p>
+	<p><button id="modalLink" class="btn">Show a modal window</button></p>
 
 	<p>&nbsp;</p>
 	<p>The code in this example:</p>
 
-	<pre><code>&lt;script src="sv-modal.js"&gt;&lt;/script&gt;
-&lt;script&gt;
-// set up the modal
-var modal = new SV.Modal('my-modal');
-
-// handle events
-modal.getElement().addEventListener('sv.modal.close', function (ev) {
-	console.log('Closed the modal');
-});
-
-// trigger the modal
-document.getElementById('modalLink').addEventListener('click', function(ev) {
-	ev.preventDefault();
-
-	// inject some content
-	var html = '&lt;p&gt;Here are some random numbers.&lt;/p&gt;';
-	for (var i = 0; i &lt; 10; i++)
-		html += Math.random() + '&lt;br&gt;';
-	modal.inject(html, 'Hello, world!');
-
-	modal.show();
-});
-&lt;/script&gt;</code></pre>
+	<pre id="js-demo-source"><code></code></pre>
 </div>
 
 
 <script src="../src/sv-modal.js?dev"></script>
-<script>
+<script id="js-demo">
 // set up the modal
 var modal = new SV.Modal('my-modal');
 
@@ -93,6 +72,7 @@ var modal = new SV.Modal('my-modal');
 modal.getModalElement().addEventListener('sv.modal.close', function (ev) {
 	console.log('Closed the modal');
 });
+
 modal.getModalElement().addEventListener('sv.modal.resize', function (ev) {
 	console.log('Resized the modal');
 });
@@ -109,6 +89,11 @@ document.getElementById('modalLink').addEventListener('click', function(ev) {
 
 	modal.show();
 });
+</script>
+
+<script>
+let jsCode = document.querySelector('#js-demo').textContent;
+document.querySelector('#js-demo-source > code').textContent = jsCode.trim();
 </script>
 
 </body>
