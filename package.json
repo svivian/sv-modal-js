@@ -1,0 +1,22 @@
+{
+  "name": "sv-localdb",
+  "version": "2.2.0",
+  "description": "A simple JavaScript library for modal dialogs/lightboxes.",
+  "main": "src/sv-modal.js",
+  "scripts": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/svivian/sv-modal-js.git"
+  },
+  "keywords": [
+    "javascript",
+    "modal",
+    "lightbox"
+  ],
+  "author": "Scott Vivian",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/svivian/sv-modal-js/issues"
+  },
+  "homepage": "https://github.com/svivian/sv-modal-js#readme"
+}
