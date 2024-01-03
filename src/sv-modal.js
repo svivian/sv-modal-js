@@ -4,18 +4,25 @@ SV = window.SV || {};
 SV.Modal = (function() {
 
 	// constructor
-	return function(modalId) {
+	return function(modalId, userConfig) {
 
 		// private members
 
 		var modal;
 		var titleElem;
 		var contentElem;
-		var animTime = 400;
+
+		let config = {};
+
+		const defaultOptions = {
+			animTime: 400,
+		};
 
 		// private methods
 
-		var init = function(modalId) {
+		var init = function() {
+			config = Object.assign({}, defaultOptions, userConfig);
+
 			// modal inner HTML
 			var modalHtml =
 				'<div class="modal">' +
@@ -90,7 +97,7 @@ SV.Modal = (function() {
 					contentElem.innerHTML = '';
 
 				modal.dispatchEvent(new CustomEvent('sv.modal.close'));
-			}, animTime);
+			}, config.animTime);
 		};
 
 		methods.resizeContent = function (width, height) {
@@ -109,11 +116,11 @@ SV.Modal = (function() {
 			// delay event to allow transitions to complete (hooking into transitionend is unreliable)
 			setTimeout(function(ev) {
 				modal.dispatchEvent(new CustomEvent('sv.modal.resize'));
-			}, animTime);
+			}, config.animTime);
 		};
 
 
-		init(modalId);
+		init();
 
 		return methods;
 	};
